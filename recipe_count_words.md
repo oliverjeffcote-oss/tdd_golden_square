@@ -5,8 +5,8 @@ Copy this into a `recipe.md` in your project and fill it out.
 ## 1. Describe the Problem
 
 As a writer 
-I want my long sentence to be returned truncated with ...
-So that I can see there is more text without taking up room on the screen
+I want to know the number of words in a given sentence
+So I can see how long it is
 
 ## 2. Design the Function Signature
 
@@ -15,14 +15,14 @@ _Include the name of the function, its parameters, return value, and side effect
 ```python
 # EXAMPLE
 
-def make_snippet(sentence):
-    """Extracts the first 5 words from a string and appends "..."
+def count_words(sentence):
+    """Returns the number of words in a string
 
     Parameters: (list all parameters and their types)
         sentence: a string that is a sentence containing multiple words (e.g. "Today I went to work and spoke to my colleague about xyz.")
 
     Returns: (state the return value and its type)
-        a string of no more than 5 words with "..." added if the string contained more than five words initially
+        an integer that is the number of words in the given string
 
     Side effects: (state any side effects)
         no side effects
@@ -39,39 +39,53 @@ _Make a list of examples of what the function will take and return._
 
 """
 Given a sentence of 3 words
-It returns the full sentence of 3 words
+It returns 3
 """
-make_snippet("Let's go party") => ["Let's go party"]
+count_words("Let's go party") => 3
 
 """
-Given a sentence of 5 words
-It returns the full sentence of 5 words
+Given a sentence of 25 words including punctuation
+It returns the full sentence of 25 words
 """
-make_snippet("Today I went to work.") => ["Today I went to work."]
-
-"""
-Given a sentence of more than 5 words
-The returned sentence contains ... at the end
-"""
-make_snippet("Today I went to work and handed in a project") => ["Today I went to work..."]
-
-"""
-Given a sentence of more than 5 words
-It returns only the first five words with ... at the end
-"""
-make_snippet("Today I went to work and handed in a project") => ["Today I went to work..."]
+count_words("Today I went to the shop and bought 5 things: a bunch of grapes, some greek yoghurt, blueberries, a jar of honey, and some granola.") => 25
 
 """
 Given an empty string
-It returns an empty string
+It returns 0
 """
-make_snippet("") => ""
+count_words("") => 0
+
+"""
+Given a string of numbers
+It returns 0
+"""
+count_words("547 1224 988") => 0
+
+"""
+Given a string of numbers and words
+It returns the correct number of words without numbers included
+"""
+count_words("547 and 1224 or 988") => 2
+
+"""
+Given a string of special characters
+It returns 0
+"""
+count_words("@£$ &*$ !!!") => 0
+
+"""
+Given a sentence that contains special characters as words
+Returns the correct result without including the special character words in the count
+"""
+count_words("Today I went to work and handed in a project !!!") => 10
+
+
 
 """
 Given an input of None
-It throws an error with the message "No sentence provided."
+It throws an error with the message "Error: No input given."
 """
-extract_uppercase(None) => "No sentence provided."
+extract_uppercase(None) => "Error: No input given."
 ```
 _Encode each example as a test. You can add to the above list as you go._
 
