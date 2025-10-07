@@ -4,7 +4,9 @@ Copy this into a `recipe.md` in your project and fill it out.
 
 ## 1. Describe the Problem
 
-_Put or write the user story here. Add any clarifying notes you might have._
+As a writer 
+I want my long sentence to be returned truncated with ...
+So that I can see there is more text without taking up room on the screen
 
 ## 2. Design the Function Signature
 
@@ -13,17 +15,17 @@ _Include the name of the function, its parameters, return value, and side effect
 ```python
 # EXAMPLE
 
-def extract_uppercase(mixed_words):
-    """Extracts uppercase words from a string
+def make_snippet(sentence):
+    """Extracts the first 5 words from a string and appends "..."
 
     Parameters: (list all parameters and their types)
-        mixed_words: a string containing words (e.g. "hello WORLD")
+        sentence: a string that is a sentence containing multiple words (e.g. "Today I went to work and spoke to my colleague about xyz.")
 
     Returns: (state the return value and its type)
-        a list of strings, each one a word (e.g. ["WORLD"])
+        a string of no more than 5 words with "..." added if the string contained more than five words initially
 
     Side effects: (state any side effects)
-        This function doesn't print anything or have any other side-effects
+        no side effects
     """
     pass # Test-driving means _not_ writing any code here yet.
 ```
@@ -36,49 +38,43 @@ _Make a list of examples of what the function will take and return._
 # EXAMPLE
 
 """
-Given a lower and an uppercase word
-It returns a list with the uppercase word
+Given a sentence of 3 words
+It returns the full sentence of 3 words
 """
-extract_uppercase("hello WORLD") => ["WORLD"]
+make_snippet("Let's go party") => ["Let's go party"]
 
 """
-Given two uppercase words
-It returns a list with both words
+Given a sentence of 5 words
+It returns the full sentence of 5 words
 """
-extract_uppercase("HELLO WORLD") => ["HELLO", "WORLD"]
+make_snippet("Today I went to work.") => ["Today I went to work."]
 
 """
-Given two lowercase words
-It returns an empty list
+Given a sentence of more than 5 words
+The returned sentence contains ... at the end
 """
-extract_uppercase("hello world") => []
+make_snippet("Today I went to work and handed in a project") => ["Today I went to work..."]
 
 """
-Given a lower and a mixed case word
-It returns an empty list
+Given a sentence of more than 5 words
+It returns only the first five words with ... at the end
 """
-extract_uppercase("hello WoRLD") => []
-
-"""
-Given a lowercase word and an uppercase word with an exclamation mark
-It returns a list with the uppercase word, no exclamation mark
-"""
-extract_uppercase("hello WORLD!") => ["WORLD"]
+make_snippet("Today I went to work and handed in a project") => ["Today I went to work..."]
 
 """
 Given an empty string
-It returns an empty list
+It returns an empty string
 """
-extract_uppercase("") => []
+make_snippet("") => ""
 
 """
-Given a None value
-It throws an error
+Given an input of None
+It throws an error with the message "No sentence provided."
 """
-extract_uppercase(None) throws an error
+extract_uppercase(None) => "No sentence provided."
 ```
-
 _Encode each example as a test. You can add to the above list as you go._
+
 
 ## 4. Implement the Behaviour
 
