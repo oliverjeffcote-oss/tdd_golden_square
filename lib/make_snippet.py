@@ -1,7 +1,6 @@
 def make_snippet(sentence):
-    # word_list = []
 
     if len(sentence.split()) > 5:
-        return sentence + "..."
+        return " ".join(sentence.split()[:5]) + "..."
     else:
         return sentence
