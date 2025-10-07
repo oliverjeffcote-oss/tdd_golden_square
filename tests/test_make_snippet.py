@@ -15,3 +15,7 @@ def test_long_sentence_ends_with_dots():
 def test_long_sentences_are_truncated_to_5_words():
     result = make_snippet("Today I went to work and spoke to my friend")
     assert result == "Today I went to work..."
+
+def test_empty_string_is_returned_empty():
+    result = make_snippet("")
+    assert result == ""
