@@ -40,52 +40,41 @@ _Make a list of examples of what the function will take and return._
 # EXAMPLE
 
 """
-Given a string of 200 words
-It returns 1 
+Given a string starting with Capital letter and ending in full stop
+Returns True
 """
-make_snippet("xxx 200 word snippet xxx") => 1
+check_grammar("This is a sentence.") => True
 
 """
-Given a string of 900 words
-It returns 5 (ie it rounds up)
+Given a string starting with Capital letter and ending with no punctuation 
+Returns False
 """
-make_snippet("xxx 900 word snippet xxx ") => 5
+check_grammar("This is a sentence") => False
 
 """
-Given a string of 310 words
-It returns 2 (ie it rounds up)
+Given a string starting without a capital letter and ending in full stop
+Returns False
 """
-make_snippet("xxx 310 word snippet xxx ") => 2
-
-"""
-Given a string of 7 words
-It returns 1 (ie it rounds up)
-"""
-make_snippet("This will take less than one minute") => 1
+check_grammar("this is a sentence.") => False
 
 """
 Given an empty string
-It returns 0
+Returns False
 """
-make_snippet("") => 0
+check_grammar("") => False
 
 """
-Given an incorrect data type
+Given an incorrect data type i.e not a string
 Throws Exception with error message
 """
-make_snippet(99) => Exception("String not provided.")
+check_grammar(99) => Exception("String not provided.")
 
 """
-Given an empty string
-It returns an empty string
+Given a string starting with no capital and ending with no punctuation
+returns False
 """
-make_snippet("") => ""
+check_grammar("poor grammar sentence") => False
 
-"""
-Given an input of None
-It throws an error with the message "Error: No input given."
-"""
-extract_uppercase(None) => "Error: No input given."
 ```
 _Encode each example as a test. You can add to the above list as you go._
 
