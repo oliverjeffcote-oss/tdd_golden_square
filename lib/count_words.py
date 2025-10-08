@@ -1,2 +1,5 @@
 def count_words(string):
-    return len(string.split())
+    if isinstance(string, str) == False:
+        raise Exception("String not given.")
+    words = [word for word in string.split()]
+    return len(words)
