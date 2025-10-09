@@ -2,6 +2,9 @@ import math
 
 class DiaryEntry:
     def __init__(self, title, contents):
+        if title == '' or contents == '':
+            raise Exception("Diary entries must have title and contents")
+
         self.title = title
         self.contents = contents
         self.words = contents.split()
@@ -25,7 +28,9 @@ class DiaryEntry:
         # Returns:
         #   int: an estimate of the reading time in minutes for the contents at
         #        the given wpm.
-
+        if wpm <= 0:
+            raise Exception("Cannot have a wpm value of 0 or less")
+        
         reading_time_estimate = math.ceil(self.count_words() / wpm)
         return reading_time_estimate
 
@@ -45,7 +50,7 @@ class DiaryEntry:
         
         number_of_words_user_can_read = wpm * minutes
 
-        if self.words_read == len(self.contents.split()):
+        if self.words_read >= len(self.words):
             self.words_read = 0
 
         if self.words_read == 0:

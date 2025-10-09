@@ -1,5 +1,6 @@
 from lib.diary_entry import DiaryEntry
 from tests.sample_texts import *
+import pytest
 
 '''
 When initiating a new instance of DiaryEntry with a title and contents
@@ -11,6 +12,16 @@ def test_diary_entry_stores_title():
     result = diary_entry.title
 
     assert result == "Monday 1st September"
+
+'''
+If title or contents is empty
+Throws an error
+'''
+
+def test_for_empty_title_or_contents():
+    with pytest.raises(Exception) as e:
+        diary_entry = DiaryEntry("", "")
+    assert str(e.value) == "Diary entries must have title and contents"
 
 '''
 When initiating a new instance of DiaryEntry with a title and contents
@@ -63,9 +74,36 @@ def test_returns_correct_reading_time_100wpm():
     assert diary_entry.reading_time(100) == 2
 
 '''
+Given a wpm of 0
+#reading-time throws an error
+'''
+
+def test_throws_error_if_wpm_is_0():
+    diary_entry = DiaryEntry("Weds 3rd Sept", text_one_200)
+    with pytest.raises(Exception) as e:
+        assert diary_entry.reading_time(0)
+    error_message = str(e.value)
+    assert error_message == "Cannot have a wpm value of 0 or less"
+
+'''
+Given a wpm of less than 0
+#reading-time throws an error
+'''
+
+def test_throws_error_if_wpm_is_0():
+    diary_entry = DiaryEntry("Weds 3rd Sept", text_one_200)
+    with pytest.raises(Exception) as e:
+        assert diary_entry.reading_time(-4)
+    error_message = str(e.value)
+    assert error_message == "Cannot have a wpm value of 0 or less"
+
+'''
 When given words per minute and an integer with number of minutes a user has got to read
 will return a string with the contents that the user can read in the given number of minutes
 '''
+def test_returns_number_of_words_user_can_read_simple():
+    diary_entry = DiaryEntry("Weds 3rd Sept", "one two three four")
+    assert diary_entry.reading_chunk(1, 2) == "one two"
 
 def test_returns_number_of_words_user_can_read_full_text():
     diary_entry = DiaryEntry("Weds 3rd Sept", text_one_200)
@@ -78,8 +116,12 @@ def test_returns_number_of_words_user_can_read_long_text():
 '''
 When some of the content has already been read, the next chunk is provided for the user to read in the specified number of minutes
 '''
+def test_returns_next_chunk_of_words_simple():
+    diary_entry = DiaryEntry("Weds 3rd Sept", "one two three four five")
+    diary_entry.reading_chunk(1, 2)
+    assert diary_entry.reading_chunk(1, 2) == "three four"
 
-def test_returns_next_chunk_of_words():
+def test_returns_next_chunk_of_words_complex():
     diary_entry = DiaryEntry("Weds 3rd Sept", text_two_900)
     diary_entry.reading_chunk(100, 2)
     assert diary_entry.reading_chunk(100, 2) == ' '.join(text_two_900.split()[200:400])
@@ -88,6 +130,12 @@ def test_returns_next_chunk_of_words():
 When there is some content left but less words than the available words that can be read, 
 It only returns the remaining words and doesn't wrap back to the start
 '''
+
+def test_returns_remaining_chunk_of_words_simple():
+    diary_entry = DiaryEntry("Weds 3rd Sept", "one two three four five")
+    diary_entry.reading_chunk(1, 2)
+    diary_entry.reading_chunk(1, 2)
+    assert diary_entry.reading_chunk(1, 2) == "five"
 
 def test_returns_remaining_chunk_of_words():
     diary_entry = DiaryEntry("Weds 3rd Sept", text_two_900)
