@@ -22,3 +22,15 @@ def test_returns_list_of_tasks():
     task_tracker.add_task("Go to the shops")
     task_tracker.add_task("Make lunch")
     assert task_tracker.list_todo() == ["Walk the dog", "Go to the shops", "Make lunch"]
+
+def test_mark_complete_changes_status_to_complete():
+    task_tracker = TaskTracker()
+    task_tracker.add_task("Go to the shops")
+    task_tracker.mark_complete("Go to the shops")
+    assert task_tracker.tasks == [{"task" : "Go to the shops", "status" : "complete"}]
+
+def return_empty_list_where_all_tasks_are_completed():
+    task_tracker = TaskTracker()
+    task_tracker.add_task("Make lunch")
+    task_tracker.mark_complete("Make lunch")
+    assert task_tracker.list_todo() == []

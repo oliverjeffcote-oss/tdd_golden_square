@@ -9,3 +9,11 @@ class TaskTracker():
     
     def list_todo(self):
         return [task['task'] for task in self.tasks]
+    
+    def mark_complete(self, task):
+
+        for item in self.tasks:
+            if item['task'] == task:
+                item['status'] = 'complete'
+
+ 
